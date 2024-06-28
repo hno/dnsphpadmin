@@ -30,6 +30,9 @@ class Zones
             if (isset($properties['in_transfer']))
                 $result[$domain]['in_transfer'] = $properties['in_transfer'];
 
+            if (isset($properties['note']))
+                $result[$domain]['note'] = $properties['note'];
+
             if (isset($properties['maintenance_note']))
                 $result[$domain]['maintenance_note'] = $properties['maintenance_note'];
 
@@ -77,6 +80,24 @@ class Zones
                 return true;
         }
         return false;
+    }
+
+    public static function GetDefaultTTL($domain)
+    {
+        global $g_default_ttl, $g_domains;
+
+        if ($domain === NULL)
+            return $g_default_ttl;
+
+        if (!array_key_exists($domain, $g_domains))
+            die("No such zone: $domain");
+
+        $domain_info = $g_domains[$domain];
+
+        if (array_key_exists('ttl', $domain_info))
+            return $domain_info['ttl'];
+
+        return $g_default_ttl;
     }
 }
 

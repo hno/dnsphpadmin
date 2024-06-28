@@ -68,6 +68,11 @@ function GetStatusOfZoneAsNote($domain)
         $is_ok = false;
         $status->Text .= '<span class="glyphicon glyphicon-alert"></span> <b>Maintenance note:</b> ' .$domain_info['maintenance_note'];
     }
+    if (array_key_exists('note', $domain_info))
+    {
+        $is_ok = false;
+        $status->Text .= '<span class="glyphicon glyphicon-info"></span> <b>Note:</b> ' .$domain_info['note'];
+    }
 
     if ($is_ok)
         return NULL;
@@ -249,7 +254,7 @@ function GetRecordListTable($parent, $domain)
         $table->AppendRow($record);
     }
     if ($is_editable) {
-	$add = '<a href="index.php?action=edit&domain=' . $domain . '"><span title="Add New" class="glyphicon glyphicon-plus"></span></a>';
+	$add = '<a href="index.php?action=new&domain=' . $domain . '"><span title="Add New" class="glyphicon glyphicon-plus"></span></a>';
 	$table->AppendRow(['', '', '', '', '', $add]);
     }
     return $table;
